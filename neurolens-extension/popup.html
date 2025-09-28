@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body {
+      width: 300px;
+      padding: 0;
+      margin: 0;
+      background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+      color: #f9fafb;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 14px;
+    }
+
+    .header {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1));
+      padding: 16px;
+      border-bottom: 1px solid rgba(75, 85, 99, 0.3);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 18px;
+      font-weight: 600;
+      color: #3b82f6;
+      margin-bottom: 4px;
+    }
+
+    .subtitle {
+      font-size: 12px;
+      color: #9ca3af;
+      margin: 0;
+    }
+
+    .content {
+      padding: 16px;
+    }
+
+    .status-section {
+      margin-bottom: 16px;
+    }
+
+    .status-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 12px;
+      background: rgba(31, 41, 55, 0.5);
+      border: 1px solid rgba(75, 85, 99, 0.2);
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+
+    .status-label {
+      font-size: 12px;
+      color: #9ca3af;
+    }
+
+    .status-value {
+      font-weight: 600;
+      font-size: 13px;
+    }
+
+    .status-good { color: #22c55e; }
+    .status-warning { color: #f59e0b; }
+    .status-error { color: #ef4444; }
+
+    .controls {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .btn {
+      padding: 10px 14px;
+      background: rgba(59, 130, 246, 0.1);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      color: #3b82f6;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .btn:hover {
+      background: rgba(59, 130, 246, 0.2);
+      border-color: rgba(59, 130, 246, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .btn.secondary {
+      background: rgba(107, 114, 128, 0.1);
+      border-color: rgba(107, 114, 128, 0.3);
+      color: #9ca3af;
+    }
+
+    .btn.secondary:hover {
+      background: rgba(107, 114, 128, 0.2);
+      border-color: rgba(107, 114, 128, 0.4);
+    }
+
+    .btn.danger {
+      background: rgba(239, 68, 68, 0.1);
+      border-color: rgba(239, 68, 68, 0.3);
+      color: #ef4444;
+    }
+
+    .btn.danger:hover {
+      background: rgba(239, 68, 68, 0.2);
+    }
+
+    .settings-section {
+      border-top: 1px solid rgba(75, 85, 99, 0.3);
+      padding-top: 16px;
+      margin-top: 16px;
+    }
+
+    .setting-item {
+      margin-bottom: 12px;
+    }
+
+    .setting-label {
+      display: block;
+      font-size: 12px;
+      color: #d1d5db;
+      margin-bottom: 4px;
+    }
+
+    .setting-select, .setting-range {
+      width: 100%;
+      background: rgba(31, 41, 55, 0.5);
+      border: 1px solid rgba(75, 85, 99, 0.3);
+      color: #f9fafb;
+      border-radius: 6px;
+      padding: 6px 8px;
+      font-size: 12px;
+    }
+
+    .setting-range {
+      height: 6px;
+      padding: 0;
+    }
+
+    .range-value {
+      font-size: 11px;
+      color: #9ca3af;
+      text-align: center;
+      margin-top: 2px;
+    }
+
+    .footer {
+      padding: 12px 16px;
+      background: rgba(17, 24, 39, 0.8);
+      border-top: 1px solid rgba(75, 85, 99, 0.2);
+      font-size: 11px;
+      color: #6b7280;
+      text-align: center;
+    }
+
+    .error {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #ef4444;
+      padding: 8px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
+
+    .success {
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      color: #22c55e;
+      padding: 8px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">
+      <span>🧠</span>
+      NeuroLens
+    </div>
+    <p class="subtitle">YouTube Emotion Analysis</p>
+  </div>
+
+  <div class="content">
+    <div class="status-section">
+      <div class="status-item">
+        <span class="status-label">Extension Status</span>
+        <span class="status-value" id="extension-status">Active</span>
+      </div>
+      <div class="status-item">
+        <span class="status-label">Backend Connection</span>
+        <span class="status-value" id="backend-status">Checking...</span>
+      </div>
+      <div class="status-item">
+        <span class="status-label">Current Page</span>
+        <span class="status-value" id="page-status">Checking...</span>
+      </div>
+    </div>
+
+    <div id="message-area"></div>
+
+    <div class="controls">
+      <button class="btn" id="toggle-overlay">
+        <span>👁️</span>
+        Show Overlay
+      </button>
+      <button class="btn secondary" id="test-connection">
+        <span>🔗</span>
+        Test Connection
+      </button>
+      <button class="btn secondary" id="refresh-page">
+        <span>🔄</span>
+        Refresh Page
+      </button>
+    </div>
+
+    <div class="settings-section">
+      <h3 style="margin: 0 0 12px 0; font-size: 14px; color: #d1d5db;">Settings</h3>
+      
+      <div class="setting-item">
+        <label class="setting-label">Analysis Interval</label>
+        <select class="setting-select" id="analysis-interval">
+          <option value="1000">1 second (High CPU)</option>
+          <option value="2000" selected>2 seconds (Recommended)</option>
+          <option value="5000">5 seconds (Low CPU)</option>
+        </select>
+      </div>
+
+      <div class="setting-item">
+        <label class="setting-label">Confidence Threshold: <span id="confidence-value">70%</span></label>
+        <input type="range" class="setting-range" id="confidence-threshold" 
+               min="0.1" max="1" step="0.1" value="0.7">
+      </div>
+
+      <div class="setting-item">
+        <button class="btn secondary" id="export-settings">
+          <span>💾</span>
+          Export Settings
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    NeuroLens v1.0.0 • Real-time Emotion Analysis
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

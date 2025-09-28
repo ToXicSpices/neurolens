@@ -1,0 +1,50 @@
+{
+  "manifest_version": 3,
+  "name": "NeuroLens - YouTube Emotion Overlay",
+  "version": "1.0.0",
+  "description": "Real-time emotion analysis overlay for YouTube videos using facial recognition",
+  
+  "permissions": [
+    "activeTab",
+    "storage",
+    "scripting"
+  ],
+  
+  "host_permissions": [
+    "*://www.youtube.com/*",
+    "*://youtube.com/*",
+    "http://localhost:8000/*"
+  ],
+  
+  "content_scripts": [
+    {
+      "matches": ["*://www.youtube.com/watch*"],
+      "js": ["socket.io.min.js", "content.js"],
+      "css": ["overlay.css"],
+      "run_at": "document_end"
+    }
+  ],
+  
+  "background": {
+    "service_worker": "background.js"
+  },
+  
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "NeuroLens Controls",
+    "default_icon": {
+      
+    }
+  },
+  
+  "icons": {
+    
+  },
+  
+  "web_accessible_resources": [
+    {
+      "resources": ["socket.io.min.js"],
+      "matches": ["*://www.youtube.com/*"]
+    }
+  ]
+}
